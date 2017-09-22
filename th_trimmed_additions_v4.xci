@@ -1,0 +1,625 @@
+##CLEAR
+
+# note - i'm not clearing since that seems to lose me the quickmenu, which i find useful, and that way i can keep the touch screen menus, if i want (by just calling these by different names)
+
+# modifications by niv levy april 2014
+# start from the default tophat xci file as of 1.3.5e and trim all that's redundant
+# add the quick menu (which is more useful than the M button with the remote, since i can't easily cycle between the buttons with a remote / joystick
+# also add some pan related stuff
+# add the navordered (i.e what you get from clicking the taskbar)
+# v2 - added corner events to the joystick, and writing them in here
+# v3 - combining the two nav collections into one
+# 3c - adding mcready (modifying M menus)
+# v4 - major changes to M menus, trying to streamline useful things and ditch auxiliary stuff to some sub menu (that can't acidentllaly be entered by cycling the F4/M button
+#  i also removed the thermal assistant - i think it's better to just have it as a screen option (whether or not that should be the default is a different issue - i personally haven't used it so far.
+
+# TODO - some easy access to MC dialog (rather than the small menu); it just needs to be implemented as part of the "setup" event. 
+
+# -------------------
+# GlideComputerEvents
+# -------------------
+
+mode=default
+type=gce
+data=TASK_START
+event=Beep 1
+event=TaskTransition start
+
+mode=default
+type=gce
+data=TASK_FINISH
+event=Beep 1
+event=TaskTransition finish
+
+mode=default
+type=gce
+data=TASK_NEXTWAYPOINT
+event=Beep 1
+event=TaskTransition next
+
+mode=default
+type=gce
+data=GPS_CONNECTION_WAIT
+
+mode=default
+type=gce
+data=COMMPORT_RESTART
+
+mode=default
+type=gce
+data=GPS_FIX_WAIT
+
+mode=default
+type=gce
+data=STARTUP_SIMULATOR
+
+mode=default
+type=gce
+data=STARTUP_REAL
+
+mode=default
+type=gce
+data=TAKEOFF
+event=AutoLogger start
+event=AddWaypoint takeoff
+event=StatusMessage Takeoff
+
+mode=default
+type=gce
+data=LANDING
+event=StatusMessage Landing
+event=AutoLogger stop
+event=DownloadFlightLog
+
+mode=default
+type=gce
+data=FLIGHTMODE_FINALGLIDE_ABOVE
+event=StatusMessage Above final glide
+
+mode=default
+type=gce
+data=FLIGHTMODE_FINALGLIDE_BELOW
+event=StatusMessage Below final glide
+
+mode=default
+type=gce
+data=FLIGHTMODE_FINALGLIDE_TERRAIN
+event=StatusMessage Final glide through terrain
+
+mode=default
+type=gce
+data=LANDABLE_UNREACHABLE
+event=Beep 1
+
+# ------------
+# mode=default
+# ------------
+
+mode=Menu MenuWithScreens Menu20 Menu.Aux Nav20 Orientation MCadjust default.Traffic
+type=key
+data=ESCAPE
+event=Mode default
+
+mode=default pan
+type=key
+data=ESCAPE
+event=Page restore
+
+mode=default.Traffic
+type=key
+data=RETURN
+event=Traffic details
+
+###### pan mode
+
+mode=pan
+type=key
+data=DOWN
+event=Pan down
+
+mode=pan
+type=key
+data=UP
+event=Pan up
+
+mode=pan
+type=key
+data=LEFT
+event=Pan left
+
+mode=pan
+type=key
+data=RIGHT
+event=Pan right
+
+# may remove in the future - seems more trouble than it's worth.
+mode=pan
+type=key
+data=F9
+event=Pan up
+event=Pan left
+
+mode=pan
+type=key
+data=F7
+event=Pan down
+event=Pan right
+
+mode=pan
+type=key
+data=F6
+event=Pan right
+event=Pan up
+
+mode=pan
+type=key
+data=F8
+event=Pan down
+event=Pan left
+
+
+mode=pan
+type=key
+data=ESCAPE
+event=Pan off
+label=Pan\nOff\nESCAPE
+location=28
+
+mode=pan
+type=key
+data=F2
+event=Zoom in
+label=Zoom In\nF2
+location=2
+
+mode=pan
+type=key
+data=F3
+event=Zoom out
+label=Zoom Out\nF3
+location=3
+
+mode=pan
+type=key
+data=RETURN
+event=NearestMapItems pan
+label=What is here?\nOk
+location=4
+
+
+###### main entry buttons
+
+mode=default
+type=key
+data=F2
+event=QuickMenu
+event=Mode default
+
+mode=default
+type=key
+data=F3
+event=Mode Nav20
+event=Mode default
+
+mode=default
+type=key
+data=F4
+event=Mode Menu
+
+# Always active buttons. (unless over-written)
+
+mode=default
+type=key
+data=DOWN
+event=Zoom out
+
+mode=default
+type=key
+data=UP
+event=Zoom in
+
+#exception - i like activating pan easily, so sacrificing these other events
+mode=default
+type=key
+data=RETURN
+event=Pan on
+# event=FLARMRadar toggle
+# event=ClearAirspaceWarnings
+# event=ClearStatusMessages
+
+mode=default
+type=key
+data=LEFT
+event=ScreenModes previous
+
+mode=default
+type=key
+data=RIGHT
+event=ScreenModes next
+
+# # -------------
+# # nuked menu items
+# # -------------
+# mode=MenuXXX
+# type=key
+# data=6
+# event=FlarmTraffic
+# event=Mode default
+# label=FLARM Radar$(CheckFLARM)
+# location=18
+
+# -------------
+# mode=Nav20
+# -------------
+
+mode=Nav20
+type=key
+data=F2
+event=Mode default
+event=AbortTask toggle
+label=Task\n$(TaskAbortToggleActionName)$(CheckWaypointFile)\nF2
+location=16
+
+mode=Nav20
+type=key
+data=F3
+event=Mode default
+event=Status task
+label=Stats\nF3
+location=17
+
+mode=Nav20
+type=key
+data=F8
+event=Setup Target
+event=Mode default
+label=Target$(CheckTask)$(CheckTaskResumed)
+location=20
+
+mode=Nav20
+type=key
+data=RETURN
+event=WaypointDetails current
+event=Mode default
+label=TP Details$(CheckTask)\nReturn
+location=7
+
+mode=Nav20
+type=key
+data=F7
+event=GotoLookup
+event=Mode default
+label=Goto
+location=25
+
+mode=Nav20
+type=key
+data=LEFT
+event=AdjustWaypoint previousarm
+label=$(WaypointPreviousArm)
+location=19
+
+mode=Nav20
+type=key
+data=F6
+event=Setup Alternates
+event=Mode default
+label=Alternates$(CheckWaypointFile)
+location=23
+
+mode=Nav20
+type=key
+data=RIGHT
+event=AdjustWaypoint nextarm
+label=$(WaypointNextArm)
+location=24
+
+mode=Nav20
+type=key
+data=F4
+event=Mode default
+event=StatusMessage Dropped marker
+event=Logger note Mark
+event=MarkLocation
+label=Mark\nDrop\nF4
+location=26
+
+mode=Nav20
+type=key
+data=F9
+event=Calculator
+event=Mode default
+label=Edit Task
+location=18
+
+# -------------
+# mode=Menu
+# -------------
+
+mode=Menu
+type=key
+data=F4
+event=Mode Menu20
+
+mode=Menu
+type=key
+data=F9
+event=DeclutterLabels show
+event=DeclutterLabels toggle
+label=Labels\n$(MapLabelsToggleActionName)
+location=16
+
+mode=Menu
+type=key
+data=LEFT
+event=Zoom auto show
+event=Zoom auto toggle
+event=Mode default
+label=Set zoom $(ZoomAutoToggleActionName)
+location=17
+
+mode=Menu
+type=key
+data=F6
+event=TerrainTopography terrain toggle
+event=Mode default
+label=$(TerrainToggleActionName) terrain
+location=21
+
+mode=Menu
+type=key
+data=RIGHT
+event=TerrainTopography topography toggle
+event=Mode default
+label=$(TopographyToggleActionName) roads, cities, water
+location=22
+
+mode=Menu
+type=key
+data=F7
+event=Mode Orientation
+label=Map orientation
+location=23
+
+# -------------
+# mode=MenuWithScreens
+# alternative to Menu when Screens button is hidden
+# -------------
+
+mode=MenuWithScreens
+type=key
+data=F4
+event=Mode Menu20
+
+mode=MenuWithScreens
+type=key
+data=F9
+event=DeclutterLabels show
+event=DeclutterLabels toggle
+label=Labels\n$(MapLabelsToggleActionName)
+location=16
+
+mode=MenuWithScreens
+type=key
+data=LEFT
+event=Zoom auto show
+event=Zoom auto toggle
+event=Mode default
+label=Set zoom $(ZoomAutoToggleActionName)
+location=17
+
+#remove this?
+mode=MenuWithScreens
+type=key
+data=6
+event=ScreenModes next
+label=Switch screen
+location=18
+
+mode=MenuWithScreens
+type=key
+data=F6
+event=TerrainTopography terrain toggle
+event=Mode default
+label=$(TerrainToggleActionName) terrain
+location=21
+
+mode=MenuWithScreens
+type=key
+data=RIGHT
+event=TerrainTopography topography toggle
+event=Mode default
+label=$(TopographyToggleActionName) roads, cities, water
+location=22
+
+mode=MenuWithScreens
+type=key
+data=F7
+event=Mode Orientation
+label=Map orientation
+location=23
+
+# -------------
+# mode=Menu20
+# -------------
+
+mode=Menu20
+type=key
+data=F4
+event=Mode Menu
+
+mode=Menu20
+type=key
+data=F9
+event=Setup QuickSetup
+event=Mode default
+label=Setup
+location=16
+
+mode=Menu20
+type=key
+data=LEFT
+event=Mode MCadjust
+event=Mode default
+label=MacCready
+location=17
+
+mode=Menu20
+type=key
+data=F8
+event=Mode Menu.Aux
+event=Mode default
+label=Aux\nAnalysis
+location=18
+
+mode=Menu20
+type=key
+data=F6
+event=Setup QNH
+event=Mode default
+label=QNH
+location=21
+
+mode=Menu20
+type=key
+data=RIGHT
+event=Setup Basic
+event=Mode default
+label=Bugs & Ballast
+location=22
+
+mode=Menu20
+type=key
+data=F7
+event=Setup Wind
+event=Mode default
+label=Setup Wind
+location=23
+# -------------
+# mode=Menu.Aux
+# -------------
+
+mode=Menu.Aux
+type=key
+data=F9
+event=Checklist
+event=Mode default
+label=Check list
+location=16
+
+mode=Menu.Aux
+type=key
+data=LEFT
+event=Weather list
+event=Mode default
+label=Weather
+location=17
+
+mode=Menu.Aux
+type=key
+data=6
+event=Credits
+event=Mode default
+label=About
+location=18
+
+mode=Menu.Aux
+type=key
+data=F8
+event=StartupTips
+event=Mode default
+label=Help
+location=19
+
+mode=Menu.Aux
+type=key
+data=F6
+event=Mode default
+label=Help
+location=21
+
+mode=Menu.Aux
+type=key
+data=0
+event=Setup Replay
+event=Mode default
+label=Replay$(CheckReplay)
+location=21
+
+mode=Menu.Aux
+type=key
+data=RIGHT
+event=Analysis
+event=Mode default
+label=Analysis
+location=22
+
+mode=Menu.Aux
+type=key
+data=F7
+event=Mode default
+event=Status all
+label=Status
+location=23
+
+mode=Menu.Aux
+type=key
+data=0
+event=Exit system
+event=Mode default
+label=Exit program
+location=24
+
+# -------------
+# mode=Orientation
+# -------------
+
+mode=Orientation
+type=key
+data=F9
+event=Orientation northup
+event=Mode default
+label=$(OrientationNorthUp)\nUp-Left
+location=16
+
+mode=Orientation
+type=key
+data=LEFT
+event=Orientation trackup
+event=Mode default
+label=$(OrientationTrackUp)\nLeft
+location=17
+
+mode=Orientation
+type=key
+data=F8
+event=Orientation targetup
+event=Mode default
+label=$(OrientationTargetUp)\nDown-Left
+location=18
+
+# -------------
+# mode=MCadjust
+# -------------
+
+mode=MCadjust
+type=key
+data=UP
+event=MacCready up
+label=MC + \nUp
+location=8
+
+mode=MCadjust
+type=key
+data=DOWN
+event=MacCready down
+label=MC -\nDown
+location=6
+
+mode=MCadjust
+type=key
+data=RETURN
+event=MacCready auto show
+event=MacCready auto toggle
+label=$(CheckAutoMc)MacCready\n$(MacCreadyToggleActionName)\nReturn
+location=7

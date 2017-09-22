@@ -1,0 +1,517 @@
+##CLEAR
+
+# uncomment above to really clear things - but then we need to define quickmenu, and lots of other things.
+
+### first attempt at getting the remote box to control tophat
+# things to add - taskbar stuff (how to associate with it?); arming etc way point for aat tasks.
+# openvario has a graph of the tophat (and xcsoar) menu strcture)
+# need to simpify things, and have some default of using the arrow keys (or even just an up/down or left/right pair) to cycle the displayed boxes, with return selecting the box.
+# simplify structure - too many nav and display mode, most of which are redundant with quickmenu
+
+# it seems that Calculator = Setup Task ?
+
+# -------------------
+# GlideComputerEvents
+# -------------------
+
+mode=default
+type=gce
+data=TASK_START
+event=Beep 1
+event=TaskTransition start
+
+mode=default
+type=gce
+data=TASK_FINISH
+event=Beep 1
+event=TaskTransition finish
+
+mode=default
+type=gce
+data=TASK_NEXTWAYPOINT
+event=Beep 1
+event=TaskTransition next
+
+mode=default
+type=gce
+data=GPS_CONNECTION_WAIT
+
+mode=default
+type=gce
+data=COMMPORT_RESTART
+
+mode=default
+type=gce
+data=GPS_FIX_WAIT
+
+mode=default
+type=gce
+data=STARTUP_SIMULATOR
+
+mode=default
+type=gce
+data=STARTUP_REAL
+
+mode=default
+type=gce
+data=TAKEOFF
+event=AutoLogger start
+event=AddWaypoint takeoff
+event=StatusMessage Takeoff
+
+mode=default
+type=gce
+data=LANDING
+event=StatusMessage Landing
+event=AutoLogger stop
+
+mode=default
+type=gce
+data=FLIGHTMODE_FINALGLIDE_ABOVE
+event=StatusMessage Above final glide
+
+mode=default
+type=gce
+data=FLIGHTMODE_FINALGLIDE_BELOW
+event=StatusMessage Below final glide
+
+mode=default
+type=gce
+data=FLIGHTMODE_FINALGLIDE_TERRAIN
+event=StatusMessage Final glide through terrain
+
+mode=default
+type=gce
+data=LANDABLE_UNREACHABLE
+event=Beep 1
+
+# ------------
+# mode=default
+# ------------
+
+mode=Nav1 Nav2 Nav3 Nav4 NavOrdered NavGoto Display1 Display2 Config1 Config2 Config3 Info1 Info2 Vario1 Vario2
+type=key
+data=ESCAPE
+event=Mode default
+
+mode=default pan
+type=key
+data=ESCAPE
+event=Page restore
+
+mode=default.Traffic
+type=key
+data=RETURN
+event=Traffic details
+
+###### pan mode
+
+mode=pan
+type=key
+data=DOWN
+event=Pan down
+
+mode=pan
+type=key
+data=UP
+event=Pan up
+
+mode=pan
+type=key
+data=LEFT
+event=Pan left
+
+mode=pan
+type=key
+data=RIGHT
+event=Pan right
+
+mode=pan
+type=key
+data=ESCAPE
+event=Pan off
+label=Pan Off\nBack
+location=1
+
+mode=pan
+type=key
+data=F2
+event=Zoom in
+label=Zoom In\nF2
+location=2
+
+mode=pan
+type=key
+data=F3
+event=Zoom out
+label=Zoom Out\nF3
+location=3
+
+mode=pan
+type=key
+data=RETURN
+event=NearestMapItems pan
+label=What is here?\nOk
+location=4
+
+###### main entry buttons
+
+mode=default
+type=key
+data=F2
+event=QuickMenu
+event=Mode default
+
+mode=default
+type=key
+data=RETURN
+event=Pan on 
+
+mode=default
+type=key
+data=F3
+event=Mode NavOrdered
+
+
+mode=default
+type=key
+data=F4
+event=Setup Task
+event=Mode default
+
+
+
+# Always active buttons. (unless over-written)
+
+mode=default
+type=key
+data=DOWN
+event=Zoom out
+
+mode=default
+type=key
+data=UP
+event=Zoom in
+
+# mode=default
+# type=key
+# data=RETURN
+# event=FLARMRadar toggle
+# event=ClearAirspaceWarnings
+# event=ClearStatusMessages
+
+mode=default
+type=key
+data=LEFT
+event=ScreenModes previous
+
+mode=default
+type=key
+data=RIGHT
+event=ScreenModes next
+
+# -------------
+# mode=NavOrdered NavGoto
+# -------------
+
+mode=NavOrdered NavGoto
+type=key
+data=UP
+event=WaypointDetails current
+#event=Mode default
+label=Waypoint\nList$(CheckWaypointFile)
+location=24
+
+mode=NavOrdered NavGoto
+type=key
+data=RIGHT
+event=GotoLookup
+event=Mode default
+label=Goto
+location=23
+
+
+# -------------
+# mode=NavOrdered
+# -------------
+
+mode=NavOrdered
+type=key
+data=F3
+event=Mode NavGoto
+
+mode=NavOrdered
+type=key
+data=F2
+event=Mode default
+
+# -------------
+# mode=NavGoto
+# -------------
+
+mode=NavGoto
+type=key
+data=F2
+event=Mode NavOrdered
+
+mode=NavGoto
+type=key
+data=F3
+event=Mode Nav1
+
+mode=NavGoto
+type=key
+data=RIGHT
+#event=Mode default
+event=AbortTask toggle
+label=Resume$(CheckTask)
+location=21
+
+# -------------
+# mode=Nav1
+# -------------
+
+mode=Nav1
+type=key
+data=F3
+event=Mode Nav2
+label=Nav\n1/4
+location=1
+
+mode=Nav1
+type=key
+data=F2
+event=Mode NavGoto
+label=Nav\n1/4
+location=1
+
+mode=Nav1
+type=key
+data=LEFT
+event=AdjustWaypoint previousarm
+label=$(WaypointPreviousArm)
+location=6
+
+mode=Nav1
+type=key
+data=RIGHT
+event=AdjustWaypoint nextarm
+label=$(WaypointNextArm)
+location=7
+
+mode=Nav1
+type=key
+data=RETURN
+event=Setup Alternates
+# event=Mode default
+label=Alternates$(CheckWaypointFile)
+location=9
+
+# mode=Nav1
+# type=key
+# data=0
+# event=WaypointDetails select
+# event=Mode default
+# label=
+# location=8
+# 
+# mode=Nav1
+# type=key
+# data=0
+# event=Setup Alternates
+# event=Mode default
+# label=
+# location=9
+
+# -------------
+# mode=Nav2
+# -------------
+
+mode=Nav2
+type=key
+data=F3
+event=Mode Nav3
+label=Nav\n2/4
+location=1
+
+mode=Nav2
+type=key
+data=F2
+event=Mode Nav1
+label=Nav\n2/4
+location=1
+
+mode=Nav2
+type=key
+data=LEFT
+event=WaypointDetails select
+event=Mode default
+label=Waypoint\nList$(CheckWaypointFile)
+location=5
+
+mode=Nav2
+type=key
+data=RETURN
+event=Setup Alternates
+event=Mode default
+label=Alternates$(CheckWaypointFile)
+location=6
+
+mode=Nav2
+type=key
+data=RIGHT
+event=Mode default
+event=AbortTask toggle
+label=Task\n$(TaskAbortToggleActionName)$(CheckWaypointFile)
+location=7
+
+# -------------
+# mode=Nav3
+# -------------
+
+mode=Nav3
+type=key
+data=F3
+event=Mode MCreadyadjust
+label=Nav\n3/4
+location=1
+
+mode=Nav3
+type=key
+data=F2
+event=Mode Nav2
+label=Nav\n3/4
+location=1
+
+# maybe dropping marker should be earlier - not down in Nav3?
+mode=Nav3
+type=key
+data=LEFT 
+event=Mode default
+event=StatusMessage Dropped marker
+event=Logger note Mark
+event=MarkLocation
+label=Mark\nDrop
+location=5
+
+mode=Nav3
+type=key
+data=RETURN
+event=Setup Target
+event=Mode default
+label=Target$(CheckTask)$(CheckTaskResumed)
+location=6
+
+# mode=Nav3
+# type=key
+# data=RIGHT
+# event=AdjustWaypoint nextarm
+# label=$(WaypointNextArm)
+# location=7
+
+# # -------------
+# # mode=Config1
+# # -------------
+# 
+# mode=Config1
+# type=key
+# data=DOWN
+# event=Mode Config2
+# label=Config\n1/5
+# location=3
+# 
+# mode=Config1
+# type=key
+# data=UP
+# event=Mode Display4
+# label=Config\n1/5
+# location=3
+# 
+# mode=Config1
+# type=key
+# data=LEFT
+# event=MacCready up
+# label=MacCready\n+
+# location=5
+# 
+# mode=Config1
+# type=key
+# data=RETURN
+# event=MacCready down
+# label=MacCready\n-
+# location=6
+# 
+# mode=Config1
+# type=key
+# data=RIGHT
+# event=MacCready auto show
+# event=MacCready auto toggle
+# label=$(CheckAutoMc)MacCready\n$(MacCreadyToggleActionName)
+# location=7
+# 
+# # mode=Config1
+# # type=key
+# # data=9
+# # event=Setup Basic
+# # event=Mode default
+# # label=
+# # location=8
+# # 
+# # mode=Config1
+# # type=key
+# # data=0
+# # event=Setup Wind
+# # event=Mode default
+# # label=
+# # location=9
+# 
+
+
+#thernmal assistant mode? - just setup as a screeen if desired; no need for anything else!
+#repeat status messages? clear status messages?
+
+
+# Mode MCreadyadjust
+
+mode=MCReadyadjust
+type=key
+data=F2
+event=Mode Nav3
+#label=Nav\n1/2
+#location=1
+
+mode=MCreadyadjust
+type=key
+data=F3
+event=Mode NavOrdered
+# label=Nav\n1/2
+# location=1
+
+mode=MCReadyadjust
+type=key
+data=UP
+event=MacCready up
+label=MC+
+location=3
+
+mode=MCReadyadjust
+type=key
+data=DOWN
+event=MacCready down
+label=MC-
+location=4
+
+mode=MCReadyadjust
+type=key
+data=DOWN
+event=MacCready auto toggle
+label=MC\nAuto
+location=5
+
+mode=MCReadyadjust
+type=key
+data=ESCAPE
+event=Mode default
+
+
+# =============================

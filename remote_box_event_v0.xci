@@ -1,0 +1,1672 @@
+# #CLEAR
+
+# uncomment above to really clear things - but then we need to define quickmenu, and lots of other things.
+
+### first attempt at getting the remote box to control tophat
+# things to add - taskbar stuff (how to associate with it?); arming etc way point for aat tasks.
+# openvario has a graph of the tophat (and xcsoar) menu strcture)
+# need to simpify things, and have some default of using the arrow keys (or even just an up/down or left/right pair) to cycle the displayed boxes, with return selecting the box.
+# simplify structure - too many nav and display mode, most of which are redundant with quickmenu
+
+# -------------------
+# GlideComputerEvents
+# -------------------
+
+mode=default
+type=gce
+data=TASK_START
+event=Beep 1
+event=TaskTransition start
+
+mode=default
+type=gce
+data=TASK_FINISH
+event=Beep 1
+event=TaskTransition finish
+
+mode=default
+type=gce
+data=TASK_NEXTWAYPOINT
+event=Beep 1
+event=TaskTransition next
+
+mode=default
+type=gce
+data=GPS_CONNECTION_WAIT
+
+mode=default
+type=gce
+data=COMMPORT_RESTART
+
+mode=default
+type=gce
+data=GPS_FIX_WAIT
+
+mode=default
+type=gce
+data=STARTUP_SIMULATOR
+
+mode=default
+type=gce
+data=STARTUP_REAL
+
+mode=default
+type=gce
+data=TAKEOFF
+event=AutoLogger start
+event=AddWaypoint takeoff
+event=StatusMessage Takeoff
+
+mode=default
+type=gce
+data=LANDING
+event=StatusMessage Landing
+event=AutoLogger stop
+
+mode=default
+type=gce
+data=FLIGHTMODE_FINALGLIDE_ABOVE
+event=StatusMessage Above final glide
+
+mode=default
+type=gce
+data=FLIGHTMODE_FINALGLIDE_BELOW
+event=StatusMessage Below final glide
+
+mode=default
+type=gce
+data=FLIGHTMODE_FINALGLIDE_TERRAIN
+event=StatusMessage Final glide through terrain
+
+mode=default
+type=gce
+data=LANDABLE_UNREACHABLE
+event=Beep 1
+
+# ------------
+# mode=default
+# ------------
+
+mode=Nav1 Nav2 Nav3 Nav4 NavOrdered NavGoto Display1 Display2 Config1 Config2 Config3 Info1 Info2 Vario1 Vario2
+type=key
+data=ESCAPE
+event=Mode default
+
+mode=default pan
+type=key
+data=ESCAPE
+event=Page restore
+
+mode=default.Traffic
+type=key
+data=RETURN
+event=Traffic details
+
+###### pan mode
+
+mode=pan
+type=key
+data=DOWN
+event=Pan down
+
+mode=pan
+type=key
+data=UP
+event=Pan up
+
+mode=pan
+type=key
+data=LEFT
+event=Pan left
+
+mode=pan
+type=key
+data=RIGHT
+event=Pan right
+
+mode=pan
+type=key
+data=ESCAPE
+event=Pan off
+label=Pan Off\nBack
+location=1
+
+mode=pan
+type=key
+data=F2
+event=Zoom in
+label=Zoom In\nF2
+location=2
+
+mode=pan
+type=key
+data=F3
+event=Zoom out
+label=Zoom Out\nF3
+location=3
+
+mode=pan
+type=key
+data=RETURN
+event=NearestMapItems pan
+label=What is here?\nOk
+location=4
+
+###### main entry buttons
+
+mode=default
+type=key
+data=F2
+event=QuickMenu
+event=Mode default
+
+mode=default
+type=key
+data=RETURN
+event=Pan on 
+
+mode=default
+type=key
+data=F3
+event=Mode NavOrdered
+
+
+# mode=default
+# type=key
+# data=F2
+# event=Analysis
+# event=Checklist
+# event=Mode default
+# 
+# mode=default
+# type=key
+# data=F3
+# event=Checklist
+# event=Mode default
+# 
+# mode=default
+# type=key
+# data=F4
+# event=FlarmTraffic
+# event=Mode default
+# 
+# mode=default
+# type=key
+# data=F5
+# event=GotoLookup
+# event=Mode default
+# 
+# mode=default
+# type=key
+# data=F6
+# event=Setup Alternates
+# event=Mode default
+
+mode=default NavOrdered NavGoto
+type=key
+data=F4
+event=Setup Task
+event=Mode default
+
+# mode=default
+# type=key
+# data=F8
+# event=Setup Basic
+# event=Mode default
+# 
+# mode=default
+# type=key
+# data=F12
+# event=Mode Menu
+# 
+# mode=default
+# type=key
+# data=F9
+# event=Mode Nav1
+# 
+# mode=default
+# type=key
+# data=F10
+# event=Mode Display1
+# 
+# mode=default
+# type=key
+# data=F11
+# event=Mode Config1
+# 
+# mode=default
+# type=key
+# data=Menu
+# event=Mode Info1
+
+# Always active buttons. (unless over-written)
+
+mode=default
+type=key
+data=DOWN
+event=Zoom out
+
+mode=default
+type=key
+data=UP
+event=Zoom in
+
+# mode=default
+# type=key
+# data=RETURN
+# event=FLARMRadar toggle
+# event=ClearAirspaceWarnings
+# event=ClearStatusMessages
+
+mode=default
+type=key
+data=LEFT
+event=ScreenModes previous
+
+mode=default
+type=key
+data=RIGHT
+event=ScreenModes next
+
+###
+
+# mode=default
+# type=key
+# data=6
+# event=Setup Basic
+# event=Mode default
+# 
+# mode=default
+# type=key
+# data=7
+# event=Calculator
+
+#mode=default
+#type=key
+#data=8
+#event=Setup Task
+#event=Mode default
+
+# mode=default
+# type=key
+# data=9
+# event=Setup Target
+
+#mode=default
+#type=key
+#data=0
+#event=ArmAdvance show
+#event=ArmAdvance toggle
+
+# -------------
+# mode=Nav1
+# -------------
+
+mode=Nav1
+type=key
+data=F3
+event=Mode Nav2
+label=Nav\n1/4
+location=1
+
+mode=Nav1
+type=key
+data=F2
+event=Mode NavGoto
+label=Nav\n1/4
+location=1
+
+# mode=Nav1
+# type=key
+# data=UP
+# event= Mode Menu
+# label=Nav\n1/4
+# location=1
+
+mode=Nav1
+type=key
+data=LEFT
+event=Calculator
+label=Task
+location=5
+
+mode=Nav1
+type=key
+data=RETURN
+event=AdjustWaypoint previousarm
+label=$(WaypointPreviousArm)
+location=6
+
+mode=Nav1
+type=key
+data=RIGHT
+event=AdjustWaypoint nextarm
+label=$(WaypointNextArm)
+location=7
+
+# mode=Nav1
+# type=key
+# data=0
+# event=WaypointDetails select
+# event=Mode default
+# label=
+# location=8
+# 
+# mode=Nav1
+# type=key
+# data=0
+# event=Setup Alternates
+# event=Mode default
+# label=
+# location=9
+
+# -------------
+# mode=Nav2
+# -------------
+
+mode=Nav2
+type=key
+data=F3
+event=Mode Nav3
+label=Nav\n2/4
+location=1
+
+mode=Nav2
+type=key
+data=F2
+event=Mode Nav1
+label=Nav\n2/4
+location=1
+
+mode=Nav2
+type=key
+data=LEFT
+event=WaypointDetails select
+event=Mode default
+label=Waypoint\nList$(CheckWaypointFile)
+location=5
+
+mode=Nav2
+type=key
+data=RETURN
+event=Setup Alternates
+event=Mode default
+label=Alternates$(CheckWaypointFile)
+location=6
+
+mode=Nav2
+type=key
+data=RIGHT
+event=Mode default
+event=AbortTask toggle
+label=Task\n$(TaskAbortToggleActionName)$(CheckWaypointFile)
+location=7
+
+# -------------
+# mode=Nav3
+# -------------
+
+mode=Nav3
+type=key
+data=F3
+event=Mode Nav4
+label=Nav\n3/4
+location=1
+
+mode=Nav3
+type=key
+data=F2
+event=Mode Nav2
+label=Nav\n3/4
+location=1
+
+# maybe dropping marker should be earlier - not down in Nav3?
+mode=Nav3
+type=key
+data=LEFT 
+event=Mode default
+event=StatusMessage Dropped marker
+event=Logger note Mark
+event=MarkLocation
+label=Mark\nDrop
+location=5
+
+mode=Nav3
+type=key
+data=RETURN
+event=Setup Target
+event=Mode default
+label=Target$(CheckTask)$(CheckTaskResumed)
+location=6
+
+mode=Nav3
+type=key
+data=RIGHT
+event=AdjustWaypoint nextarm
+label=$(WaypointNextArm)
+location=7
+
+# -------------
+# mode=Nav4
+# -------------
+
+mode=Nav4
+type=key
+data=F3
+event=Mode Display1
+label=Nav\n4/4
+location=1
+
+mode=Nav4
+type=key
+data=F2
+event=Mode Nav3
+label=Nav\n4/4
+location=1
+
+mode=Nav4
+type=key
+data=LEFT
+event=WaypointDetails select
+event=Mode default
+label=Waypoint\nList$(CheckWaypointFile)
+location=5
+
+mode=Nav4
+type=key
+data=RETURN
+event=Setup Alternates
+event=Mode default
+label=Alternates$(CheckWaypointFile)
+location=6
+
+# -------------
+# mode=Display1
+# -------------
+
+mode=Display1
+type=key
+data=F3
+event=Mode Display2
+label=Display\n1/4
+location=2
+
+mode=Display1
+type=key
+data=F2
+event=Mode Nav4
+label=Display\n1/4
+location=2
+
+mode=Display1
+type=key
+data=LEFT
+event=Zoom in
+label=Zoom\nIn
+location=5
+
+mode=Display1
+type=key
+data=RETURN
+event=Zoom out
+label=Zoom\nOut
+location=6
+
+mode=Display1
+type=key
+data=RIGHT
+event=Zoom auto show
+event=Zoom auto toggle
+label=Zoom\n$(ZoomAutoToggleActionName)
+location=7
+
+# mode=Display1
+# type=key
+# data=9
+# event=ScreenModes cycle
+# label=
+# location=8
+# 
+# mode=Display1
+# type=key
+# data=0
+# event=Pan on
+# label=
+# location=9
+
+# -------------
+# mode=Display2
+# -------------
+
+mode=Display2
+type=key
+data=F3
+event=Mode Display3
+label=Display\n2/4
+location=2
+
+mode=Display2
+type=key
+data=F2
+event=Mode Display1
+label=Display\n2/4
+location=2
+
+mode=Display2
+type=key
+data=LEFT
+event=ScreenModes cycle
+label=$(NextPageName)
+location=5
+
+mode=Display2
+type=key
+data=RETURN
+event=Pan on
+label=Pan\nOn
+location=6
+
+mode=Display2
+type=key
+data=RIGHT
+event=DeclutterLabels show
+event=DeclutterLabels toggle
+label=Labels\n$(MapLabelsToggleActionName)
+location=7
+
+# mode=Display2
+# type=key
+# data=9
+# event=TerrainTopography topography toggle
+# label=
+# location=8
+# 
+# mode=Display2
+# type=key
+# data=0
+# event=AirSpace toggle
+# label=
+# location=9
+
+# -------------
+# mode=Display3
+# -------------
+
+mode=Display3
+type=key
+data=F3
+event=Mode Display4
+label=Display\n3/4
+location=2
+
+mode=Display3
+type=key
+data=F2
+event=Mode Display2
+label=Display\n3/4
+location=2
+
+mode=Display3
+type=key
+data=LEFT
+event=SnailTrail show
+event=SnailTrail toggle
+label=Trail\n$(SnailTrailToggleName)
+location=5
+
+mode=Display3
+type=key
+data=RETURN
+event=TerrainTopography terrain toggle
+label=Terrain\n$(TerrainToggleActionName)
+location=6
+
+mode=Display3
+type=key
+data=RIGHT
+event=TerrainTopography topography toggle
+label=Topo.\n$(TopographyToggleActionName)
+location=7
+
+# -------------
+# mode=Display4
+# -------------
+
+# mode=Display4
+# type=key
+# data=F3
+# event=Mode Config1
+# label=Display\n4/4
+# location=2
+
+mode=Display4
+type=key
+data=F2
+event=Mode Display3
+label=Display\n4/4
+location=2
+
+mode=Display4
+type=key
+data=LEFT
+event=AirSpace toggle
+label=Airspace\n$(AirspaceToggleActionName)
+location=5
+
+# # -------------
+# # mode=Config1
+# # -------------
+# 
+# mode=Config1
+# type=key
+# data=DOWN
+# event=Mode Config2
+# label=Config\n1/5
+# location=3
+# 
+# mode=Config1
+# type=key
+# data=UP
+# event=Mode Display4
+# label=Config\n1/5
+# location=3
+# 
+# mode=Config1
+# type=key
+# data=LEFT
+# event=MacCready up
+# label=MacCready\n+
+# location=5
+# 
+# mode=Config1
+# type=key
+# data=RETURN
+# event=MacCready down
+# label=MacCready\n-
+# location=6
+# 
+# mode=Config1
+# type=key
+# data=RIGHT
+# event=MacCready auto show
+# event=MacCready auto toggle
+# label=$(CheckAutoMc)MacCready\n$(MacCreadyToggleActionName)
+# location=7
+# 
+# # mode=Config1
+# # type=key
+# # data=9
+# # event=Setup Basic
+# # event=Mode default
+# # label=
+# # location=8
+# # 
+# # mode=Config1
+# # type=key
+# # data=0
+# # event=Setup Wind
+# # event=Mode default
+# # label=
+# # location=9
+# 
+# # -------------
+# # mode=Config2
+# # -------------
+# mode=Config2
+# type=key
+# data=DOWN
+# event=Mode Config3
+# label=Config\n2/5
+# location=3
+# 
+# mode=Config2
+# type=key
+# data=UP
+# event=Mode Config1
+# label=Config\n2/5
+# location=3
+# 
+# mode=Config2
+# type=key
+# data=LEFT
+# event=Setup Basic
+# event=Mode default
+# label=Flight
+# location=5
+# 
+# mode=Config2
+# type=key
+# data=RETURN
+# event=Setup Wind
+# event=Mode default
+# label=Wind
+# location=6
+# 
+# mode=Config2
+# type=key
+# data=RIGHT
+# event=Setup System
+# event=Mode default
+# label=System
+# location=7
+# 
+# # 
+# # mode=Config2
+# # type=key
+# # data=9
+# # event=FileManager
+# # event=Mode default
+# # label=
+# # location=8
+# # 
+# # mode=Config2
+# # type=key
+# # data=0
+# # event=Setup Replay
+# # event=Mode default
+# # label=
+# # location=9
+# 
+# # -------------
+# # mode=Config3
+# # -------------
+# mode=Config3
+# type=key
+# data=DOWN
+# event=Mode Config4
+# label=Config\n3/5
+# location=3
+# 
+# mode=Config3
+# type=key
+# data=UP
+# event=Mode Config2
+# label=Config\n3/5
+# location=3
+# 
+# mode=Config3
+# type=key
+# data=LEFT
+# event=Setup Plane
+# event=Mode default
+# label=Plane
+# location=5
+# 
+# mode=Config3
+# type=key
+# data=RETURN
+# event=Device list
+# event=Mode default
+# label=Devices
+# location=6
+# 
+# mode=Config3
+# type=key
+# data=RIGHT
+# event=FileManager
+# event=Mode default
+# label=File Manager
+# location=7
+# 
+# # mode=Config3
+# # type=key
+# # data=0
+# # event=Mode Vario1
+# # label=
+# # location=8
+# 
+
+# -------------
+# mode=NavOrdered NavGoto
+# -------------
+
+mode=NavOrdered NavGoto
+type=key
+data=UP
+event=WaypointDetails current
+#event=Mode default
+label=Waypoint\nList$(CheckWaypointFile)
+location=24
+
+mode=NavOrdered NavGoto
+type=key
+data=RIGHT
+event=GotoLookup
+event=Mode default
+label=Goto
+location=23
+
+mode=NavOrdered NavGoto
+type=key
+data=LEFT
+event=Calculator
+event=Mode default
+label=Edit Task
+location=18
+
+# -------------
+# mode=NavOrdered
+# -------------
+
+mode=NavOrdered
+type=key
+data=F3
+event=Mode NavGoto
+
+# -------------
+# mode=NavGoto
+# -------------
+
+mode=NavGoto
+type=key
+data=F2
+event=Mode NavOrdered
+
+mode=NavGoto
+type=key
+data=F3
+event=Mode Nav1
+
+mode=NavGoto
+type=key
+data=RIGHT
+#event=Mode default
+event=AbortTask toggle
+label=Resume$(CheckTask)
+location=21
+
+
+# -------------
+# mode=Nav1
+# -------------
+
+mode=Nav1
+type=key
+data=F3
+event=Mode Nav2
+label=Nav\n1/2
+location=1
+
+mode=Nav1
+type=key
+data=F2
+event=Mode NavGoto
+label=Nav\n1/2
+location=1
+
+# mode=Nav1
+# type=key
+# data=6
+# event=Calculator
+# event=Mode default
+# label=Task
+# location=5
+
+mode=Nav1
+type=key
+data=LEFT
+event=AdjustWaypoint previousarm
+label=$(WaypointPreviousArm)
+location=6
+
+mode=Nav1
+type=key
+data=RIGHT
+event=AdjustWaypoint nextarm
+label=$(WaypointNextArm)
+location=7
+
+# mode=Nav1
+# type=key
+# data=9
+# event=WaypointDetails select
+# event=Mode default
+# label=Waypoint\nList$(CheckWaypointFile)
+# location=8
+
+mode=Nav1
+type=key
+data=RETURN
+event=Setup Alternates
+#event=Mode default
+label=Alternates$(CheckWaypointFile)
+location=9
+
+
+# -------------
+# mode=Config4
+# -------------
+
+# mode=Config4
+# type=key
+# data=DOWN
+# event=Mode Config5
+# label=Config\n4/5
+# location=3
+
+# mode=Config4
+# type=key
+# data=UP
+# event=Mode Config3
+# label=Config\n4/5
+# location=3
+
+# mode=Config4
+# type=key
+# data=LEFT
+# event=Setup Replay
+# event=Mode default
+# label=Replay$(CheckReplay)
+# location=5
+
+# mode=Config4
+# type=key
+# data=RETURN
+# event=Logger show
+# event=Logger toggle ask
+# label=Logger\n$(LoggerActive)$(CheckLogger)
+# location=6
+# 
+# mode=Config4
+# type=key
+# data=RIGHT
+# event=Logger nmea
+# label=Raw Logger$(CheckLogger)
+# location=7
+# # 
+# # # -------------
+# # # mode=Config5
+# # # -------------
+# # 
+# # mode=Config5
+# # type=key
+# # data=DOWN
+# # event=Mode Info1
+# # label=Config\n5/5
+# # location=3
+# # 
+# # mode=Config5
+# # type=key
+# # data=UP
+# # event=Mode Config4
+# # label=Config\n5/5
+# # location=3
+# # 
+# # mode=Config5
+# # type=key
+# # data=LEFT
+# # event=Setup Airspace
+# # event=Mode default
+# # label=Airspace$(CheckAirspace)
+# # location=5
+# # 
+# # mode=Config5
+# # type=key
+# # data=RETURN
+# # event=Mode Vario1
+# # label=Vega$(CheckVega)
+# # location=6
+# # 
+# # # -------------
+# # # mode=Info1
+# # # -------------
+# # mode=Info1
+# # type=key
+# # data=DOWN
+# # event=Mode Info2
+# # label=Info\n1/5
+# # location=4
+# # 
+# # mode=Info1
+# # type=key
+# # data=UP
+# # event=Mode Config5
+# # label=Info\n1/5
+# # location=4
+# # 
+# # mode=Info1
+# # type=key
+# # data=LEFT
+# # event=FlarmTraffic
+# # event=Mode default
+# # label=FLARM Radar$(CheckFLARM)
+# # location=5
+# # 
+# # mode=Info1
+# # type=key
+# # data=RETURN
+# # event=Weather list
+# # event=Mode default
+# # label=METAR\nTAF$(CheckNet)
+# # location=6
+# # 
+# # mode=Info1
+# # type=key
+# # data=RIGHT
+# # event=NearestMapItems aircraft
+# # event=Mode default
+# # label=What's\nhere?
+# # location=7
+# # 
+# # # mode=Info1
+# # # type=key
+# # # data=9
+# # # event=Checklist
+# # # event=Mode default
+# # # label=
+# # # location=8
+# # # 
+# # # mode=Info1
+# # # type=key
+# # # data=0
+# # # event=Analysis
+# # # event=Mode default
+# # # label=
+# # # location=9
+# # 
+# # # -------------
+# # # mode=Info2
+# # # -------------
+# # mode=Info2
+# # type=key
+# # data=DOWN
+# # event=Mode Info3
+# # label=Info\n2/5
+# # location=4
+# # 
+# # mode=Info2
+# # type=key
+# # data=UP
+# # event=Mode Info1
+# # label=Info\n2/5
+# # location=4
+# # 
+# # mode=Info2
+# # type=key
+# # data=LEFT
+# # event=Checklist
+# # event=Mode default
+# # label=Check\nlist
+# # location=5
+# # 
+# # mode=Info2
+# # type=key
+# # data=RETURN
+# # event=Analysis
+# # event=Mode default
+# # label=Analysis
+# # location=6
+# # 
+# # mode=Info2
+# # type=key
+# # data=RIGHT
+# # event=Status all
+# # event=Mode default
+# # label=Status
+# # location=7
+# # 
+# # # mode=Info2
+# # # type=key
+# # # data=9
+# # # event=FlarmDetails
+# # # event=Mode default
+# # # label=
+# # # location=8
+# # # 
+# # # mode=Info2
+# # # type=key
+# # # data=0
+# # # event=ThermalAssistant
+# # # event=Mode default
+# # # label=
+# # # location=9
+# # 
+# # # -------------
+# # # mode=Info3
+# # # -------------
+# # mode=Info3
+# # type=key
+# # data=DOWN
+# # event=Mode Info4
+# # label=Info\n3/5
+# # location=4
+# # 
+# # mode=Info3
+# # type=key
+# # data=UP
+# # event=Mode Info2
+# # label=Info\n3/5
+# # location=4
+# # 
+# # mode=Info3
+# # type=key
+# # data=LEFT
+# # event=Setup Weather
+# # event=Mode default
+# # label=Weather
+# # location=5
+# # 
+# # mode=Info3
+# # type=key
+# # data=RETURN
+# # event=Setup Teamcode
+# # event=Mode default
+# # label=Team\nCode
+# # location=6
+# # 
+# # mode=Info3
+# # type=key
+# # data=RIGHT
+# # event=FlarmDetails
+# # event=Mode default
+# # label=Traffic List
+# # location=7
+# # 
+# # # -------------
+# # # mode=Info4
+# # # -------------
+# # mode=Info4
+# # type=key
+# # data=DOWN
+# # event=Mode Info5
+# # label=Info\n4/5
+# # location=4
+# # 
+# # mode=Info4
+# # type=key
+# # data=UP
+# # event=Mode Info3
+# # label=Info\n4/5
+# # location=4
+# # 
+# # mode=Info4
+# # type=key
+# # data=LEFT
+# # event=ThermalAssistant
+# # event=Mode default
+# # label=Thermal Assistant
+# # location=5
+# # 
+# # mode=Info4
+# # type=key
+# # data=RETURN
+# # event=Credits
+# # event=Mode default
+# # label=Credits
+# # location=6
+# # 
+# # mode=Info4
+# # type=key
+# # data=RIGHT
+# # event=AirSpace list
+# # event=Mode default
+# # label=Airspaces
+# # location=7
+# # 
+# # # -------------
+# # # mode=Info5
+# # # -------------
+# # mode=Info5
+# # type=key
+# # data=DOWN
+# # event=Mode default
+# # label=Info\n5/5
+# # location=4
+# # 
+# # mode=Info5
+# # type=key
+# # data=UP
+# # event=Mode Info4
+# # label=Info\n5/5
+# # location=4
+# # 
+# # mode=Info5
+# # type=key
+# # data=LEFT
+# # event=RepeatStatusMessage
+# # label=Message\nRepeat
+# # location=5
+# # 
+# # # -------------
+# # # mode=Menu
+# # # -------------
+# # 
+# # # mode=Menu
+# # # type=key
+# # # data=DOWN
+# # # event=Mode Nav1
+# # # label=Nav
+# # # location=1
+# # 
+# # # mode=Menu
+# # # type=key
+# # # data=menu
+# # # event=Mode Display1
+# # # label=Display
+# # # location=2
+# # # 
+# # # mode=Menu
+# # # type=key
+# # # data=menu
+# # # event=Mode Config1
+# # # label=Config
+# # # location=3
+# # # 
+# # # mode=Menu
+# # # type=key
+# # # data=menu
+# # # event=Mode Info1
+# # # label=Info
+# # # location=4
+# # # 
+# # # mode=Menu
+# # # type=key
+# # # data=9
+# # # event=Mode default
+# # # label=Cancel
+# # # location=8
+# # # 
+# # # mode=Menu
+# # # type=key
+# # # data=0
+# # # event=Exit system
+# # # event=Mode default
+# # # label=Quit
+# # # location=9
+# # 
+# # # ----------------------------------
+# # # mode=default.TA (ThermalAssistant)
+# # # ----------------------------------
+# # 
+# # # ---------------------
+# # # mode=Display1.Traffic
+# # # ---------------------
+# # 
+# # # mode=Display1.Traffic
+# # # type=key
+# # # data=6
+# # # event=Traffic zoom in
+# # # label=Zoom\nIn
+# # # location=5
+# # # 
+# # # mode=Display1.Traffic
+# # # type=key
+# # # data=7
+# # # event=Traffic zoom out
+# # # label=Zoom\nOut
+# # # location=6
+# # # 
+# # # mode=Display1.Traffic
+# # # type=key
+# # # data=8
+# # # event=Traffic zoom auto toggle
+# # # label=Zoom\n$(TrafficZoomAutoToggleActionName)
+# # # location=7
+# # # 
+# # # mode=Display1.Traffic
+# # # type=key
+# # # data=0
+# # # event=Traffic northup toggle
+# # # label=$(TrafficNorthUpToggleActionName)
+# # # location=9
+# # # 
+# # # mode=Display2.Traffic
+# # # type=key
+# # # data=6
+# # # event=Traffic label toggle
+# # # label=AVG/ALT
+# # # location=5
+# # 
+# # # Mode MCreadyadjust
+# # 
+# # mode=MCReadyadjust
+# # type=key
+# # data=UP
+# # event=MacCready up
+# # label=+
+# # location=3
+# # 
+# # mode=MCReadyadjust
+# # type=key
+# # data=DOWN
+# # event=MacCready down
+# # label=-
+# # location=4
+# # 
+# # # FIXME - i think these should be revesed? i.e. return to accept, q to abort?
+# # mode=MCReadyadjust
+# # type=key
+# # data=q
+# # event=Mode default
+# # label=OK(q)
+# # location=8
+# # 
+# # mode=MCReadyadjust
+# # type=key
+# # data=RETURN
+# # event=Mode default
+# # 
+# # # -------------
+# # # mode=RemoteStick
+# # # -------------
+# # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Mode MCReadyadjust
+# # # label=MC-Setup
+# # # location=12
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=AdjustWaypoint previousarm
+# # # label=$(WaypointPreviousArm)
+# # # location=6
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=AdjustWaypoint nextarm
+# # # label=$(WaypointNextArm)
+# # # location=7
+# # # 
+# # # #mode=RemoteStick
+# # # #type=key
+# # # #data=0
+# # # #event=WaypointDetails select
+# # # #event=Mode default
+# # # #label=Waypoint\nList$(CheckWaypointFile)
+# # # #location=2
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Setup Alternates
+# # # event=Mode default
+# # # label=Alternates$(CheckWaypointFile)
+# # # location=11
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Mode default
+# # # event=AbortTask toggle
+# # # label=Task\n$(TaskAbortToggleActionName)$(CheckWaypointFile)
+# # # location=9
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=GotoLookup
+# # # event=Mode default
+# # # label=GoTo$(CheckWaypointFile)
+# # # location=13
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Setup Target
+# # # event=Mode default
+# # # label=Target(AAT-OPT)$(CheckTask)$(CheckTaskResumed)
+# # # location=8
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Calculator
+# # # label=Task
+# # # location=9
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Zoom auto show
+# # # event=Zoom auto toggle
+# # # label=Zoom\n$(ZoomAutoToggleActionName)
+# # # location=16
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=Mode default
+# # #event=StatusMessage Dropped marker
+# # #event=Logger note Mark
+# # #event=MarkLocation
+# # #label=Mark\nDrop
+# # #location=10
+# # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Pan on
+# # # label=Pan\nOn
+# # # location=15
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=DeclutterLabels show
+# # #event=DeclutterLabels toggle
+# # #label=Labels\n$(MapLabelsToggleActionName)
+# # #location=12
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=SnailTrail show
+# # #event=SnailTrail toggle
+# # #label=Trail\n$(SnailTrailToggleName)
+# # #location=13
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=TerrainTopography terrain toggle
+# # #label=Terrain\n$(TerrainToggleActionName)
+# # #location=14
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=TerrainTopography topography toggle
+# # #label=Topo.\n$(TopographyToggleActionName)
+# # #location=15
+# # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=MacCready auto show
+# # # event=MacCready auto toggle
+# # # label=$(CheckAutoMc)MC\n$(MacCreadyToggleActionName)
+# # # location=17
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Setup Basic
+# # # event=Mode default
+# # # label=Flight\nSetup
+# # # location=18
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=Setup Wind
+# # #event=Mode default
+# # #label=Setup\nWind
+# # #location=18
+# # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Setup System
+# # # event=Mode default
+# # # label=Setup\nSystem
+# # # location=24
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=Setup Airspace
+# # #event=Mode default
+# # #label=Settings\nAirspace$(CheckAirspace)
+# # #location=20
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=Logger show
+# # #event=Logger toggle ask
+# # #label=Logger\n$(LoggerActive)$(CheckLogger)
+# # #location=21
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=Logger nmea
+# # #label=Raw Logger$(CheckLogger)
+# # #location=22
+# # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Device list
+# # # event=Mode default
+# # # label=Devices(Read out)
+# # # location=19
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=Setup Plane
+# # #event=Mode default
+# # #label=Setup Plane
+# # #location=24
+# # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=FlarmTraffic
+# # # label=FLARM Radar$(CheckFLARM)
+# # # location=22
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=Weather list
+# # #event=Mode default
+# # #label=METAR\nTAF$(CheckNet)
+# # #location=26
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=NearestAirspaceDetails
+# # #event=Mode default
+# # #label=Nearest\nAirspace$(CheckAirspace)
+# # #location=27
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=Checklist
+# # #event=Mode default
+# # #label=Check\nlist
+# # #location=28
+# # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Analysis
+# # # event=Mode default
+# # # label=Analysis
+# # # location=10
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Status all
+# # # event=Mode default
+# # # label=Status
+# # # location=14
+# # 
+# # #mode=RemoteStick
+# # #type=key
+# # #data=0
+# # #event=ThermalAssistant
+# # #event=Mode default
+# # #label=Thermal Assistant$(CheckCircling)
+# # #location=31
+# # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Exit
+# # # label=Exit
+# # # location=20
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Mode Menu
+# # # label=Std. Menu
+# # # location=21
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Mode default
+# # # label=-
+# # # location=0
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Mode default
+# # # label=-
+# # # location=2
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Mode default
+# # # label=-
+# # # location=1
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Mode default
+# # # label=-
+# # # location=3
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Mode default
+# # # label=-
+# # # location=4
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Mode default
+# # # label=-
+# # # location=5
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Mode default
+# # # label=Replay
+# # # location=23
+# # # 
+# # # mode=RemoteStick
+# # # type=key
+# # # data=0
+# # # event=Mode default
+# # # label=-
+# # # location=24
+
+# =============================
