@@ -1,7 +1,9 @@
 /*
  * license GPL v2
- * uses a esp8266 mini board (or clone thereoff connected to a hacked cheap remote.
- * specifically https://www.aliexpress.com/item/Top-Deals-CHUNGHOP-1PCS-L181-Combinational-Universal-Remote-Controller-MINI-Learning-remote-control-For-TV-SAT/32803364889.html
+ * uses a esp8266 mini board (or clone of i got these )
+ * https://www.aliexpress.com/item/5-sets-D1-Mini-Mini-nodemcu-4-m-bytes-moon-esp8266-WiFi-Internet-of-things-based/32770121685.html?spm=a2g0s.9042311.0.0.ZiSmQq
+ * connected to a hacked cheap remote from which i got the button / matrix but removed the uc
+ * https://www.aliexpress.com/item/Top-Deals-CHUNGHOP-1PCS-L181-Combinational-Universal-Remote-Controller-MINI-Learning-remote-control-For-TV-SAT/32803364889.html
  * conenction matrix (pin numbers are for the original uc which i removed)
  * 
  * Down arrow 8,9
