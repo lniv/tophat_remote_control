@@ -30,6 +30,8 @@
 #include <WiFiUdp.h>
 // bring in the actual wifi stuff in the future
 
+#define ARRLEN(a) (sizeof(a)/sizeof((a)[0]))
+
 /*
  *key matrix definition 
  * two arrays, the first for pins we'll use as output and set to zero
@@ -68,7 +70,7 @@ void setup() {
     // set all to input / pullup to begin with
     // pins connected - used for setting things up
     const uint8_t pins_used[] = {D6,D4,D3,D7,D1,D2,D5};
-    for (uint8_t i = 0; i < 7; i ++) {
+    for (uint8_t i = 0; i < ARRLEN(pins_used); i ++) {
         pinMode(pins_used[i], INPUT_PULLUP);
     }
     Serial.println('Finished setup');
@@ -78,7 +80,7 @@ byte j =0 ;
 void loop() {
     uint8_t i;
     uint8_t new_state;
-    for (i = 0 ; i < 8; i ++) {
+    for (i = 0 ; i < ARRLEN(output_pins); i ++) {
         pinMode(output_pins[i], OUTPUT);
         digitalWrite(output_pins[i], LOW);
         delay(10); // needed?
