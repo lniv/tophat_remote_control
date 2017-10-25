@@ -26,9 +26,38 @@
  * 
 */
 
+#define USE_WIFI
+//#define DEBUG
+
+
+#ifdef USE_WIFI
+
 #include <ESP8266WiFi.h> 
 #include <WiFiUdp.h>
-// bring in the actual wifi stuff in the future
+
+// setup when using a hootoo + nook 
+const char *ssid = "TripMateSith-0C78";
+const char *password = "11111111";
+const char* host = "10.10.10.2"; // cellphone was 2, kobo 4,3
+
+const int port = 10110; // flarm on 4352, vario on 4353
+
+WiFiUDP udp;
+
+void send_packet(char *packetBuffer, int j) {
+#ifdef DEBUG
+    Serial.print("sending to ");
+    Serial.print(host);
+    Serial.print(", ");
+    Serial.println(port);
+#endif
+    udp.beginPacket(host, port);
+    udp.write(packetBuffer, j);
+    udp.endPacket();
+    return;
+}
+
+#endif
 
 #define ARRLEN(a) (sizeof(a)/sizeof((a)[0]))
 
@@ -58,9 +87,15 @@ void send_coded_key(byte k) {
     for (i=1; i< ps.length(); i++) {
 	checksum ^= ps[i]; 
     }
-    ps = ps + "*" ;
-    Serial.print(ps);
-    Serial.println(checksum, HEX);
+    ps = ps + "*" + String(checksum, HEX) ;
+    Serial.println(ps);
+#ifdef USE_WIFI
+    ps = ps + "\r\n"; // a bit odd, but matching println
+    i = ps.length() + 1;
+    char buf[i];
+    ps.toCharArray(buf, i);
+    send_packet(buf, i -1);
+#endif
     return;
 }
 
@@ -73,6 +108,28 @@ void setup() {
     for (uint8_t i = 0; i < ARRLEN(pins_used); i ++) {
         pinMode(pins_used[i], INPUT_PULLUP);
     }
+    
+#ifdef USE_WIFI
+    Serial.println("Connecting to wifi");
+    WiFi.begin(ssid, password);
+    int i =0;
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.println(i);
+        i++;
+    }
+    Serial.println("");
+    
+    Serial.println("WiFi connected");
+    Serial.println("IP address: ");
+    Serial.println(WiFi.localIP());
+    
+    //udp
+    udp.begin(port);
+    Serial.print("Local port: ");
+    Serial.println(udp.localPort());
+#endif
+    
     Serial.println('Finished setup');
 }
 
