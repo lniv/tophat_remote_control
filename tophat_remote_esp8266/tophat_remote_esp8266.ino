@@ -28,7 +28,7 @@
 
 #define USE_WIFI
 //#define DEBUG
-
+#define MAX_WIFI_TRIES 10
 
 #ifdef USE_WIFI
 
@@ -90,11 +90,13 @@ void send_coded_key(byte k) {
     ps = ps + "*" + String(checksum, HEX) ;
     Serial.println(ps);
 #ifdef USE_WIFI
-    ps = ps + "\r\n"; // a bit odd, but matching println
-    i = ps.length() + 1;
-    char buf[i];
-    ps.toCharArray(buf, i);
-    send_packet(buf, i -1);
+	if ( WiFi.status() == WL_CONNECTED) {
+		ps = ps + "\r\n"; // a bit odd, but matching println
+		i = ps.length() + 1;
+		char buf[i];
+		ps.toCharArray(buf, i);
+		send_packet(buf, i -1);
+	}
 #endif
     return;
 }
@@ -111,23 +113,29 @@ void setup() {
     
 #ifdef USE_WIFI
     Serial.println("Connecting to wifi");
+	Serial.println(ssid);
+	Serial.println(password);
     WiFi.begin(ssid, password);
     int i =0;
-    while (WiFi.status() != WL_CONNECTED) {
+    while (WiFi.status() != WL_CONNECTED && i < MAX_WIFI_TRIES) {
         delay(500);
         Serial.println(i);
         i++;
     }
     Serial.println("");
-    
-    Serial.println("WiFi connected");
-    Serial.println("IP address: ");
-    Serial.println(WiFi.localIP());
-    
-    //udp
-    udp.begin(port);
-    Serial.print("Local port: ");
-    Serial.println(udp.localPort());
+	if ( WiFi.status() == WL_CONNECTED) {
+		Serial.println("WiFi connected");
+		Serial.println("IP address: ");
+		Serial.println(WiFi.localIP());
+		
+		//udp
+		udp.begin(port);
+		Serial.print("Local port: ");
+		Serial.println(udp.localPort());
+	}
+	else {
+		Serial.println("WIFI connection failed");
+	}
 #endif
     
     Serial.println('Finished setup');
